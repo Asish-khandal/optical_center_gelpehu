@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #0f172a;
+    background-color: #ffffff;
+  }
+}
+
+@layer components {
+  .p-button {
+    border-radius: 0.5rem !important;
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.sparkle {
+  animation: sparkle 2.5s ease-in-out infinite;
+}
+
+.sparkle-delay-1 { animation-delay: 0.6s; }
+.sparkle-delay-2 { animation-delay: 1.2s; }
+.sparkle-delay-3 { animation-delay: 1.8s; }
+.sparkle-delay-4 { animation-delay: 2.4s; }
