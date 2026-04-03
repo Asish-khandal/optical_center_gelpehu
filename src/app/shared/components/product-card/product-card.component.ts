@@ -48,7 +48,7 @@ import { Product } from '../../../core/models/product.model';
           <div>
             <p class="text-xs text-gray-400 font-medium mb-0.5">Price</p>
             <span class="font-extrabold text-xl" style="color: #d97706;">
-              NPR {{ product().price | number:'1.0-0' }}
+              Nu {{ product().price | number:'1.0-0' }}
             </span>
           </div>
           <button
