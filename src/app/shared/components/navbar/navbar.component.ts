@@ -1,82 +1,75 @@
 import { Component, signal, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgClass],
+  imports: [RouterLink, RouterLinkActive],
   template: `
-    <nav
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      [ngClass]="scrolled() ? 'shadow-xl shadow-black/30' : ''"
-      [style.background]="scrolled() ? 'rgba(6,9,15,0.97)' : 'transparent'"
-      style="backdrop-filter: blur(12px);"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-[72px]">
+    <nav class="fixed top-0 w-full z-50 glass-nav shadow-sm">
+      <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
 
-          <!-- Logo -->
-          <a routerLink="/" class="flex items-center shrink-0">
-            <img
-              src="/image-removebg-preview.png"
-              alt="Himalayan Optical Center"
-              class="h-12 w-auto"
-            />
-          </a>
+        <!-- Logo -->
+        <a routerLink="/" class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-2xl">visibility</span>
+          <span class="text-xl font-bold text-primary font-headline tracking-tight">Himalayan Optical Center</span>
+        </a>
 
-          <!-- Desktop Nav -->
-          <div class="hidden md:flex items-center gap-1">
-            @for (link of navLinks; track link.path) {
-              <a
-                [routerLink]="link.path"
-                routerLinkActive="text-amber-400 font-semibold"
-                [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-                class="px-4 py-2 text-white/75 hover:text-white text-sm font-medium transition-all relative group"
-              >
-                {{ link.label }}
-                <span class="absolute bottom-0.5 left-4 right-4 h-0.5 bg-amber-400 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-              </a>
-            }
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          @for (link of navLinks; track link.path) {
             <a
-              href="tel:+97517635837"
-              class="ml-3 px-5 py-2.5 text-white rounded-xl text-sm font-bold hover:opacity-90 transition-all shadow-lg shadow-amber-900/30 flex items-center gap-2 active:scale-95"
-              style="background: linear-gradient(135deg, #f59e0b, #d97706);"
+              [routerLink]="link.path"
+              routerLinkActive="text-primary font-semibold border-b-2 border-primary"
+              [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              class="text-slate-600 hover:text-primary transition-colors font-headline pb-1"
             >
-              <i class="pi pi-phone text-xs"></i> Call Us
+              {{ link.label }}
             </a>
-          </div>
-
-          <!-- Mobile burger -->
-          <button
-            class="md:hidden p-2.5 rounded-xl text-white hover:bg-white/10 transition-colors"
-            (click)="toggleMenu()"
-            aria-label="Toggle menu"
-          >
-            <i class="pi text-xl" [ngClass]="menuOpen() ? 'pi-times' : 'pi-bars'"></i>
-          </button>
+          }
         </div>
+
+        <!-- Right actions -->
+        <div class="hidden md:flex items-center gap-4">
+          <button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant" aria-label="Search">search</button>
+          <button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant" aria-label="Bag">shopping_bag</button>
+          <a
+            routerLink="/contact"
+            class="bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-semibold text-sm hover:shadow-xl transition-all active:scale-95"
+          >
+            Book Appointment
+          </a>
+        </div>
+
+        <!-- Mobile burger -->
+        <button
+          class="md:hidden p-2.5 rounded-xl text-slate-600 hover:bg-surface-container-low transition-colors"
+          (click)="toggleMenu()"
+          aria-label="Toggle menu"
+        >
+          <span class="material-symbols-outlined text-2xl">{{ menuOpen() ? 'close' : 'menu' }}</span>
+        </button>
       </div>
 
       <!-- Mobile Menu -->
       @if (menuOpen()) {
-        <div class="md:hidden border-t border-white/10" style="background: rgba(6,9,15,0.98);">
+        <div class="md:hidden border-t border-outline-variant/20 bg-white">
           <div class="px-4 py-4 flex flex-col gap-1">
             @for (link of navLinks; track link.path) {
               <a
                 [routerLink]="link.path"
-                routerLinkActive="bg-white/10 text-amber-400 font-semibold"
+                routerLinkActive="bg-surface-container-low text-primary font-semibold"
                 [routerLinkActiveOptions]="{ exact: link.path === '/' }"
                 (click)="menuOpen.set(false)"
-                class="px-4 py-3.5 rounded-xl text-white/75 hover:text-white hover:bg-white/5 transition-all font-medium text-sm"
+                class="px-4 py-3.5 rounded-xl text-slate-600 hover:text-primary hover:bg-surface-container-low transition-all font-headline text-sm"
               >{{ link.label }}</a>
             }
             <a
-              href="tel:+97517635837"
-              class="mt-2 px-5 py-3.5 text-white rounded-xl font-bold text-center flex items-center justify-center gap-2 transition-all"
-              style="background: linear-gradient(135deg, #f59e0b, #d97706);"
+              routerLink="/contact"
+              (click)="menuOpen.set(false)"
+              class="mt-2 px-5 py-3.5 bg-primary text-on-primary rounded-xl font-headline font-bold text-center flex items-center justify-center transition-all"
             >
-              <i class="pi pi-phone"></i> Call Us
+              Book Appointment
             </a>
           </div>
         </div>
@@ -85,20 +78,14 @@ import { NgClass } from '@angular/common';
   `,
 })
 export class NavbarComponent {
-  scrolled = signal(false);
   menuOpen = signal(false);
 
   navLinks = [
     { label: 'Home', path: '/' },
-    { label: 'Products', path: '/products' },
-    { label: 'About', path: '/about' },
-    { label: 'Contact', path: '/contact' },
+    { label: 'Shop Frames', path: '/products' },
+    { label: 'Eye Exams', path: '/contact' },
+    { label: 'Our Story', path: '/about' },
   ];
-
-  @HostListener('window:scroll')
-  onScroll() {
-    this.scrolled.set(window.scrollY > 20);
-  }
 
   toggleMenu() {
     this.menuOpen.update((v) => !v);

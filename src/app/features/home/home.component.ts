@@ -1,246 +1,238 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { ProductFacade } from '../../core/facades/product.facade';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, ProductCardComponent],
+  imports: [RouterLink],
   template: `
+
     <!-- ===== HERO ===== -->
-    <section class="relative min-h-screen flex items-center overflow-hidden"
-             style="background: linear-gradient(135deg, #06090f 0%, #0a1428 50%, #0d1e48 100%);">
+    <section class="relative min-h-[870px] flex items-center overflow-hidden bg-surface-container-low">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
 
-      <!-- Animated sparkle dots -->
-      <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="sparkle absolute w-1.5 h-1.5 rounded-full bg-amber-400" style="left:8%;top:15%;"></div>
-        <div class="sparkle sparkle-delay-1 absolute w-1 h-1 rounded-full bg-amber-300" style="left:20%;top:30%;"></div>
-        <div class="sparkle sparkle-delay-2 absolute w-1.5 h-1.5 rounded-full bg-white" style="left:75%;top:18%;"></div>
-        <div class="sparkle sparkle-delay-3 absolute w-1 h-1 rounded-full bg-amber-400" style="left:88%;top:45%;"></div>
-        <div class="sparkle sparkle-delay-1 absolute w-1 h-1 rounded-full bg-amber-200" style="left:12%;top:68%;"></div>
-        <div class="sparkle sparkle-delay-4 absolute w-2 h-2 rounded-full bg-amber-300" style="left:55%;top:22%;"></div>
-        <div class="sparkle sparkle-delay-2 absolute w-1 h-1 rounded-full bg-white" style="left:65%;top:78%;"></div>
-        <div class="sparkle sparkle-delay-3 absolute w-1.5 h-1.5 rounded-full bg-amber-400" style="left:35%;top:85%;"></div>
-      </div>
-
-      <!-- Gradient orbs -->
-      <div class="absolute top-[-15%] right-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none"
-           style="background: radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%);"></div>
-      <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full pointer-events-none"
-           style="background: radial-gradient(circle, rgba(217,119,6,0.06) 0%, transparent 70%);"></div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-36">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-          <!-- Left: Text content -->
-          <div>
-            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-amber-500/25 bg-amber-500/10 mb-8">
-              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-              <span class="text-amber-300 text-sm font-medium tracking-wide">Bhutan's Premier Eyewear Destination</span>
-            </div>
-
-            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.08] mb-6">
-              See The World
-              <span class="block" style="background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                Clearly &amp; In Style
-              </span>
-            </h1>
-
-            <p class="text-slate-300 text-lg sm:text-xl leading-relaxed mb-10 max-w-lg">
-              Premium eyeglasses, sunglasses &amp; professional eye care in Gelephu, Bhutan — crafted for those who see the world differently.
-            </p>
-
-            <div class="flex flex-wrap gap-4">
-              <a routerLink="/products"
-                 class="group px-8 py-4 text-white rounded-xl font-bold text-base transition-all shadow-xl shadow-amber-900/30 flex items-center gap-3 active:scale-95 hover:opacity-90"
-                 style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                <i class="pi pi-th-large"></i>
-                Browse Eyewear
-                <i class="pi pi-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
-              </a>
-              <a href="https://wa.me/97517635837" target="_blank"
-                 class="px-8 py-4 bg-white/5 backdrop-blur border border-white/15 text-white rounded-xl font-bold text-base hover:bg-white/10 transition-all flex items-center gap-3">
-                <i class="pi pi-whatsapp text-green-400"></i>
-                WhatsApp Us
-              </a>
-            </div>
-
-            <!-- Stats -->
-            <div class="flex gap-10 mt-14 pt-8 border-t border-white/10">
-              @for (stat of stats; track stat.label) {
-                <div>
-                  <p class="text-3xl sm:text-4xl font-bold text-white">{{ stat.value }}</p>
-                  <p class="text-slate-400 text-sm mt-0.5">{{ stat.label }}</p>
-                </div>
-              }
-            </div>
-          </div>
-
-          <!-- Right: Glasses illustration -->
-          <div class="hidden lg:flex justify-center items-center">
-            <div class="relative">
-              <svg viewBox="0 0 520 260" class="w-[440px]" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Ambient glow -->
-                <ellipse cx="145" cy="130" rx="155" ry="105" fill="rgba(59,130,246,0.06)"/>
-                <ellipse cx="375" cy="130" rx="155" ry="105" fill="rgba(59,130,246,0.06)"/>
-                <!-- Outer pulse rings -->
-                <rect x="10" y="68" width="270" height="124" rx="32" stroke="rgba(251,191,36,0.07)" stroke-width="18" fill="none"/>
-                <rect x="240" y="68" width="270" height="124" rx="32" stroke="rgba(251,191,36,0.07)" stroke-width="18" fill="none"/>
-                <!-- Main lens frames (rectangular like logo) -->
-                <rect x="20" y="78" width="210" height="104" rx="24" stroke="rgba(255,255,255,0.88)" stroke-width="8" fill="rgba(255,255,255,0.03)"/>
-                <rect x="250" y="78" width="210" height="104" rx="24" stroke="rgba(255,255,255,0.88)" stroke-width="8" fill="rgba(255,255,255,0.03)"/>
-                <!-- Inner dashed detail -->
-                <rect x="34" y="90" width="182" height="80" rx="18" stroke="rgba(251,191,36,0.22)" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
-                <rect x="264" y="90" width="182" height="80" rx="18" stroke="rgba(251,191,36,0.22)" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
-                <!-- Bridge -->
-                <path d="M230,130 C230,118 250,118 250,130" stroke="rgba(255,255,255,0.85)" stroke-width="7" stroke-linecap="round" fill="none"/>
-                <!-- Temple arms -->
-                <path d="M20,130 C10,130 2,144 0,152" stroke="rgba(255,255,255,0.65)" stroke-width="7" stroke-linecap="round"/>
-                <path d="M460,130 C470,130 478,144 480,152" stroke="rgba(255,255,255,0.65)" stroke-width="7" stroke-linecap="round"/>
-                <!-- Lens reflections -->
-                <path d="M44,94 C60,86 90,84 105,90" stroke="rgba(255,255,255,0.28)" stroke-width="3" stroke-linecap="round"/>
-                <path d="M274,94 C290,86 320,84 335,90" stroke="rgba(255,255,255,0.28)" stroke-width="3" stroke-linecap="round"/>
-                <!-- Sparkle stars -->
-                <text x="125" y="62" text-anchor="middle" font-size="20" fill="rgba(251,191,36,0.85)">✦</text>
-                <text x="395" y="62" text-anchor="middle" font-size="16" fill="rgba(251,191,36,0.65)">✦</text>
-                <text x="468" y="82" text-anchor="middle" font-size="12" fill="rgba(251,191,36,0.5)">✦</text>
-                <text x="32" y="80" text-anchor="middle" font-size="11" fill="rgba(251,191,36,0.45)">✦</text>
-                <text x="258" y="52" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.35)">✦</text>
-              </svg>
-
-              <!-- Floating badges -->
-              <div class="absolute -top-6 -right-8 bg-white rounded-2xl px-4 py-3 shadow-2xl">
-                <p class="text-xs text-gray-400 font-medium">Customer Rating</p>
-                <p class="font-bold text-slate-800 text-sm flex items-center gap-1">
-                  <span class="text-amber-400 text-base">★★★★★</span>
-                </p>
-              </div>
-              <div class="absolute -bottom-6 -left-8 bg-white rounded-2xl px-4 py-3 shadow-2xl">
-                <p class="text-xs text-gray-400 font-medium">Express Service</p>
-                <p class="font-bold text-slate-800">Ready in <span style="color:#d97706;">24 Hours</span></p>
-              </div>
-            </div>
+        <!-- Left: Text -->
+        <div class="lg:col-span-6 z-10 py-20 lg:py-0">
+          <span class="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wider text-primary bg-secondary-container rounded-full uppercase font-label">
+            Visionary Excellence
+          </span>
+          <h1 class="text-5xl md:text-7xl font-extrabold text-primary font-headline leading-[1.1] mb-6 tracking-tight">
+            Himalayan Optical <br/>
+            <span style="color: #004b49; opacity: 0.7;">Center</span>
+          </h1>
+          <p class="text-xl text-on-surface-variant leading-relaxed mb-10 max-w-lg">
+            Clear Vision, Better Life. Discover artisanal frames curated for clinical precision and unparalleled style.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="tel:+97517635837"
+               class="px-8 py-4 text-on-primary rounded-xl font-bold flex items-center gap-2 hover:shadow-xl transition-all hero-gradient">
+              <span class="material-symbols-outlined" style="font-size:18px;">call</span>
+              Call Now
+            </a>
+            <a routerLink="/products"
+               class="px-8 py-4 bg-white border-2 border-primary text-primary rounded-xl font-bold hover:bg-surface-container-low transition-all">
+              View Products
+            </a>
           </div>
         </div>
-      </div>
 
-      <!-- Wave divider -->
-      <div class="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" class="fill-white w-full" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"/>
-        </svg>
+        <!-- Right: Hero image -->
+        <div class="lg:col-span-6 relative">
+          <div class="absolute -top-20 -right-20 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl transform rotate-2">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlUV6OLiCaOD-o3_X8YZXAN4vIhoCSFZK-1bjJr3DSMZz6yqWB7-p2CPELDwlqE_S9VSML3KVg9JXy0enz8sfo765QWAG73AR3O6trIVQ4KsZJ6OTfMPw8gDpeAxg_So6TGdm7HKOwRngur753CxqLLGQYjmX3AchMpA3FelEAw2t0ZddwDhSA2J1gULU__U-MbO9emvUo_ELBBMNfDUU21eqFDKSTLZjDKXG7uTd01jFdS5v1j_xzUUtRmzV8QPbtb7YpyB9vI1CI"
+              alt="Elegant eyewear at Himalayan Optical Center"
+              class="w-full object-cover"
+              style="height: 600px;"
+            />
+          </div>
+          <!-- Floating quality card -->
+          <div class="absolute -bottom-8 -left-8 z-20 bg-white p-6 rounded-2xl shadow-xl max-w-xs">
+            <div class="flex items-center gap-4 mb-2">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white">
+                <span class="material-symbols-outlined">verified</span>
+              </div>
+              <span class="font-bold text-primary">Certified Quality</span>
+            </div>
+            <p class="text-sm text-slate-500">Premium lenses from Zeiss and Essilor for ultimate clarity.</p>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- ===== FEATURES STRIP ===== -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-          @for (f of features; track f.title) {
-            <div class="flex flex-col items-center text-center p-6 rounded-2xl border border-gray-100 hover:border-amber-200 hover:shadow-lg hover:shadow-amber-50 transition-all group cursor-default">
-              <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-amber-200/40"
-                   style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                <i [class]="'pi ' + f.icon + ' text-2xl text-white'"></i>
-              </div>
-              <h3 class="font-bold text-gray-900 text-sm mb-1">{{ f.title }}</h3>
-              <p class="text-gray-500 text-xs leading-relaxed">{{ f.desc }}</p>
-            </div>
-          }
+    <!-- ===== ARTISANAL FRAMES (BENTO GRID) ===== -->
+    <section class="py-24 px-6 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary font-headline mb-4">Artisanal Frames</h2>
+          <p class="text-lg text-on-surface-variant">Hand-selected collections that define modern sophistication and optical excellence.</p>
         </div>
+        <a routerLink="/products"
+           class="text-primary font-bold flex items-center gap-2 group shrink-0">
+          Explore Collection
+          <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px;">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Bento grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+        <!-- Large: Titanium Series (col-span-2 row-span-2) -->
+        <div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-2xl bg-surface-container-lowest p-8 flex flex-col justify-between h-[600px]">
+          <div class="relative z-10">
+            <span class="text-sm font-bold text-on-primary-container tracking-widest uppercase">New Arrival</span>
+            <h3 class="text-3xl font-bold mt-2 text-white drop-shadow">Titanium Series</h3>
+          </div>
+          <img
+            class="absolute inset-0 w-full h-full object-cover -z-10 transition-transform duration-500 group-hover:scale-105"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEYd2y4CWL7jcGprjBsjZBHF0YVxF2RbNiFTOW4JUVwKJ_Wq0MwrzGp2IMGWV0tu2UUmgVkNbz3W7AM6WleurSWJmhAxbCflDghzbplrWqOzhgq8RZtHOTQxQcRjvOQACeU8Xi_zp7vKLCBWgMrxcfZXMKp2lV3rcDxU_zSd0K18swlX_W7MgPH8Ik1nwlQJPvNfQ7UDT71VrUxGzGBsLKaC682x8ttvN81Ue1YWmpBJ8JyqjbjUY68vhdaUvgdwRPrbGIpGHAGfWz"
+            alt="Titanium Series eyewear"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent -z-10"></div>
+          <div class="relative z-10 mt-auto">
+            <a routerLink="/products"
+               class="inline-block px-6 py-3 bg-white/90 backdrop-blur text-primary rounded-lg font-bold shadow-lg hover:bg-white transition-colors">
+              Shop Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Classic Aviators -->
+        <div class="md:col-span-2 group relative overflow-hidden rounded-2xl bg-surface-container-low h-[288px]">
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPuQa_J7PMuEaGGkuLd37jcshWvO9XDGWyWU2NQzNudFaPoHZnYLnXPCSeAkOd01FLDAnSijnBrMNBNoTFbGtxaWrtGqLFbAmzeBW8YatPbFBcWZ2M9nkqbi_wF7BbRkJOu3sltW-KstLpCSVOLIDrpdDdpMWluMG34lbTJoeX762DmWhVYZnpS5m4Wnj9Wjp2pYSxI5HWZ2jHq8CioYy8Ky35L44q9KbmLoCH4XzpvX_7sqk21vSWAw8Yy1O8-u0qADKIe8DJtt3n"
+            alt="Classic Aviators"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
+            <h3 class="text-white text-xl font-bold">Classic Aviators</h3>
+            <p class="text-white/80 text-sm">Timeless style, modern protection.</p>
+          </div>
+        </div>
+
+        <!-- The Minimalist -->
+        <div class="group relative overflow-hidden rounded-2xl bg-surface-container-low h-[288px]">
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvsxj1UvPAuIii1c2XJPb708nQOOYOCtEMy4x4OQhcvTh4slg76fVm77BCgiQb5GDa-qNGezlHFU35DSXH3dpWcbKud5fns1FySizx18kUHDB0YSbXXrZBRVwL0WkJxU4agO5snPVhPkWiFRWWMR1NobjzYrrbwkzU0MYtGvZo4aFTogTy1CKK6DwTGxOfWYYT2806DAXVneEKDEuBRrEG9hFr3fqr9ow83k7YwgqyHtmOXtoYPn04Hiy0cDLSKbb69K8EeKHWX7Yc"
+            alt="The Minimalist"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+            <h3 class="text-white text-lg font-bold">The Minimalist</h3>
+          </div>
+        </div>
+
+        <!-- Eco-Craft -->
+        <div class="group relative overflow-hidden rounded-2xl bg-surface-container-low h-[288px]">
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcCjZE1E4jsb4MYzZK4yAiDw9xIyoHymm3VyE80ex9kpll04AonqFLxx7fnLGkCwu52nNbgJvXbu6W_LvMgsrRxmVQEa3bzDKHwtlJZW9-Pz-iH1W-nYmPAvVvT_QtDRkGiymLdN7RZOKiUmSzhnc3PlfyrTyl0UJ4Hunn556s-bX_spwIkoyWatakiwuJ-1ClFL7OfnUodrBBPjZQMxuO97fZ5Gy8GtrWG7HmKKg0FbB_wi-WEiN7XSB4NshngkSiCDdQ531EChjR"
+            alt="Eco-Craft"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+            <h3 class="text-white text-lg font-bold">Eco-Craft</h3>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- ===== FEATURED PRODUCTS ===== -->
-    <section class="py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <span class="text-xs font-bold uppercase tracking-widest" style="color:#d97706;">Our Collection</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Featured Eyewear</h2>
-          <p class="text-gray-500 mt-3 max-w-lg mx-auto">Handpicked frames for every face &amp; style.</p>
+    <!-- ===== PRECISION SERVICES ===== -->
+    <section class="bg-surface-container-low py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary font-headline mb-4">Precision Services</h2>
+          <p class="text-on-surface-variant max-w-xl mx-auto">Comprehensive eye care powered by advanced diagnostic technology and clinical expertise.</p>
         </div>
-
-        @if (facade.featuredProducts().length > 0) {
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @for (product of facade.featuredProducts(); track product.id) {
-              <app-product-card [product]="product" />
-            }
-          </div>
-        } @else {
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @for (p of placeholders; track p.id) {
-              <app-product-card [product]="p" />
-            }
-          </div>
-        }
-
-        <div class="text-center mt-10">
-          <a routerLink="/products"
-             class="inline-flex items-center gap-2 px-8 py-3.5 border-2 rounded-xl font-bold transition-all hover:text-white"
-             style="border-color:#0a0f1e; color:#0a0f1e;"
-             onmouseover="this.style.background='#0a0f1e'"
-             onmouseout="this.style.background='transparent'">
-            View All Products <i class="pi pi-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SERVICES ===== -->
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <span class="text-xs font-bold uppercase tracking-widest" style="color:#d97706;">What We Offer</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Our Services</h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           @for (service of services; track service.title) {
-            <div class="flex gap-5 p-6 rounded-2xl border border-gray-100 hover:border-amber-200 hover:shadow-md transition-all group">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
-                   style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
-                <i [class]="'pi ' + service.icon + ' text-xl'" style="color:#92400e;"></i>
+            <div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm hover:shadow-md transition-all group">
+              <div class="w-16 h-16 bg-secondary-container text-primary rounded-xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                <span class="material-symbols-outlined text-3xl">{{ service.icon }}</span>
               </div>
-              <div>
-                <h3 class="font-bold text-gray-900 mb-1">{{ service.title }}</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">{{ service.desc }}</p>
-              </div>
+              <h3 class="text-2xl font-bold text-primary mb-4">{{ service.title }}</h3>
+              <p class="text-on-surface-variant leading-relaxed">{{ service.desc }}</p>
             </div>
           }
         </div>
       </div>
     </section>
 
-    <!-- ===== CTA BANNER ===== -->
-    <section class="py-20 relative overflow-hidden"
-             style="background: linear-gradient(135deg, #06090f 0%, #0a1428 100%);">
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="py-24 px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-      <!-- Sparkle dots -->
-      <div class="absolute top-6 left-[10%] w-1.5 h-1.5 rounded-full bg-amber-400 sparkle pointer-events-none"></div>
-      <div class="absolute top-12 right-[15%] w-1 h-1 rounded-full bg-amber-300 sparkle sparkle-delay-1 pointer-events-none"></div>
-      <div class="absolute bottom-8 left-[30%] w-1 h-1 rounded-full bg-white/60 sparkle sparkle-delay-2 pointer-events-none"></div>
-      <div class="absolute bottom-10 right-[25%] w-1.5 h-1.5 rounded-full bg-amber-400 sparkle sparkle-delay-3 pointer-events-none"></div>
+        <!-- Left: heading + arrows -->
+        <div class="lg:col-span-4">
+          <h2 class="text-4xl font-bold text-primary font-headline mb-6 leading-tight">What Our <br/>Community Says</h2>
+          <div class="flex gap-4">
+            <button
+              (click)="prevTestimonial()"
+              class="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button
+              (click)="nextTestimonial()"
+              class="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
 
-      <!-- Gold top accent line -->
-      <div class="absolute top-0 left-0 right-0 h-px pointer-events-none"
-           style="background: linear-gradient(90deg, transparent, #d97706, #f59e0b, #d97706, transparent);"></div>
+        <!-- Right: testimonial cards -->
+        <div class="lg:col-span-8">
+          <div class="flex gap-8 overflow-hidden">
+            <!-- Primary card -->
+            <div class="min-w-[400px] bg-white p-10 rounded-3xl shadow-xl shadow-slate-900/5">
+              <div class="flex gap-1 text-yellow-500 mb-6">
+                @for (s of [1,2,3,4,5]; track s) {
+                  <span style="font-size:18px;">★</span>
+                }
+              </div>
+              <p class="text-xl italic text-on-surface mb-8">"{{ testimonials[activeTestimonial()].quote }}"</p>
+              <div class="flex items-center gap-4">
+                <img
+                  [src]="testimonials[activeTestimonial()].avatar"
+                  [alt]="testimonials[activeTestimonial()].name"
+                  class="w-12 h-12 rounded-full object-cover bg-slate-200"
+                />
+                <div>
+                  <h4 class="font-bold text-primary">{{ testimonials[activeTestimonial()].name }}</h4>
+                  <p class="text-sm text-slate-500 font-label">{{ testimonials[activeTestimonial()].role }}</p>
+                </div>
+              </div>
+            </div>
+            <!-- Secondary blurred card -->
+            <div class="min-w-[400px] bg-white/50 p-10 rounded-3xl opacity-50 blur-[1px]">
+              <p class="text-xl italic text-on-surface mb-8">"{{ testimonials[(activeTestimonial() + 1) % testimonials.length].quote }}"</p>
+              <h4 class="font-bold text-primary">{{ testimonials[(activeTestimonial() + 1) % testimonials.length].name }}</h4>
+            </div>
+          </div>
+        </div>
 
-      <div class="relative z-10 max-w-3xl mx-auto px-4 text-center">
-        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Visit Us Today</span>
-        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-3 mb-5">
-          Book Your Eye Check-up
-        </h2>
-        <p class="text-slate-400 text-lg mb-10">
-          Visit us in Gelephu for a free eye check-up, explore our premium collection,<br class="hidden sm:block"/> or get your lenses fitted by our expert team.
+      </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="max-w-7xl mx-auto px-6 mb-24">
+      <div class="hero-gradient rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32 pointer-events-none"></div>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8 relative z-10">Experience Perfect Clarity</h2>
+        <p class="text-white/80 text-xl mb-12 max-w-2xl mx-auto relative z-10">
+          Book your comprehensive eye exam today with our leading ophthalmologists.
         </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="tel:+97517635837"
-             class="px-8 py-4 text-white rounded-xl font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-xl shadow-amber-900/40"
-             style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-            <i class="pi pi-phone"></i> Call Now
+        <div class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
+          <a routerLink="/contact"
+             class="px-10 py-4 bg-white text-primary rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
+            Schedule Appointment
           </a>
           <a routerLink="/contact"
-             class="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all flex items-center gap-2">
-            <i class="pi pi-map-marker"></i> Get Directions
+             class="px-10 py-4 border border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/10 transition-all">
+            Contact Us
           </a>
         </div>
       </div>
@@ -249,33 +241,52 @@ import { ProductFacade } from '../../core/facades/product.facade';
 })
 export class HomeComponent {
   facade = inject(ProductFacade);
-
-  stats = [
-    { value: '500+', label: 'Happy Customers' },
-    { value: '200+', label: 'Frame Styles' },
-    { value: '10+', label: 'Years Experience' },
-  ];
-
-  features = [
-    { icon: 'pi-eye', title: 'Expert Eye Testing', desc: 'Certified optometrists on site' },
-    { icon: 'pi-verified', title: 'Premium Frames', desc: 'Top international brands' },
-    { icon: 'pi-tag', title: 'Best Prices', desc: 'Competitive rates guaranteed' },
-    { icon: 'pi-bolt', title: 'Same-Day Service', desc: 'Ready in as little as 24hrs' },
-  ];
+  activeTestimonial = signal(0);
 
   services = [
-    { icon: 'pi-eye', title: 'Eye Examination', desc: 'Comprehensive vision testing with modern equipment by certified optometrists.' },
-    { icon: 'pi-star', title: 'Premium Eyeglasses', desc: 'Wide selection of branded frames — from classic to contemporary styles.' },
-    { icon: 'pi-sun', title: 'Designer Sunglasses', desc: 'UV-protection sunglasses from top global brands for every lifestyle.' },
-    { icon: 'pi-cog', title: 'Lens Replacement', desc: 'Upgrade your existing frames with new high-quality prescription lenses.' },
-    { icon: 'pi-bolt', title: 'Express Service', desc: 'Get your glasses ready in as little as 24 hours with our express fitting.' },
-    { icon: 'pi-truck', title: 'Home Delivery', desc: 'Convenient delivery across Gelephu and nearby areas in Bhutan.' },
+    {
+      icon: 'medical_services',
+      title: 'Full Eye Exams',
+      desc: 'Advanced screenings for early detection of eye diseases and precise vision correction.',
+    },
+    {
+      icon: 'contacts_product',
+      title: 'Contact Lens Fitting',
+      desc: 'Personalized fitting sessions for all types of contacts, including multifocal and toric lenses.',
+    },
+    {
+      icon: 'build',
+      title: 'Expert Repair',
+      desc: 'Precision adjustments and structural repairs to keep your eyewear performing perfectly.',
+    },
   ];
 
-  placeholders = [
-    { id: '1', name: 'Classic Round Frame', price: 2500, category: 'eyeglass' as const, imageUrl: 'https://placehold.co/400x400/f1f5f9/334155?text=Round+Frame', brand: 'Ray-Ban', inStock: true },
-    { id: '2', name: 'Aviator Sunglasses', price: 3800, category: 'sunglass' as const, imageUrl: 'https://placehold.co/400x400/fffbeb/92400e?text=Aviator', brand: 'Oakley', inStock: true },
-    { id: '3', name: 'Rectangle Frame', price: 1999, category: 'eyeglass' as const, imageUrl: 'https://placehold.co/400x400/f1f5f9/334155?text=Rectangle', brand: 'Titan', inStock: true },
-    { id: '4', name: 'Cat Eye Frame', price: 2200, category: 'eyeglass' as const, imageUrl: 'https://placehold.co/400x400/f1f5f9/334155?text=Cat+Eye', brand: 'Vogue', inStock: false },
+  testimonials = [
+    {
+      quote: 'The attention to detail at Himalayan Optical is unmatched. My new titanium frames are incredibly light and the prescription is perfect.',
+      name: 'Dr. Rajesh Sharma',
+      role: 'Regular Customer',
+      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDnLnIIkt7ubFwqo2j1QkfJmXvu8UR4q-v3VTTADQfBJg-Q4-Dpa0bjAqCsDT6q2adT0cmmcha2Lt-7BDNwRCSWBsrbSTHthBcTWcUfaIf4sUVeP4LkbQLk0oIhKNnuP6ZU1kXP5IiL0lxdO3uyNUoYSTL-_vODvn6CY7Ft9NAoIvmPVqK62U5-d6rvtrYFyZyqj_JLTTZb0__pCHkVYkXEFEd7PfYY6WdP7DCCofZsQjIoadNknhadSsDkJmgpQHsrFid3VkF-ieyM',
+    },
+    {
+      quote: 'Amazing selection of luxury brands. Finally found the specific frames I\'ve been looking for months.',
+      name: 'Priya Tamang',
+      role: 'Regular Customer',
+      avatar: 'https://i.pravatar.cc/48?img=45',
+    },
+    {
+      quote: 'Kumar personally helped me find the perfect frames for my face shape. Outstanding service and great prices.',
+      name: 'Tenzin Dorji',
+      role: 'Regular Customer',
+      avatar: 'https://i.pravatar.cc/48?img=17',
+    },
   ];
+
+  prevTestimonial() {
+    this.activeTestimonial.update(v => (v - 1 + this.testimonials.length) % this.testimonials.length);
+  }
+
+  nextTestimonial() {
+    this.activeTestimonial.update(v => (v + 1) % this.testimonials.length);
+  }
 }

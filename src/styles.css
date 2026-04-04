@@ -8,8 +8,8 @@
   }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: #0f172a;
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    color: #1c1b1f;
     background-color: #ffffff;
   }
 }
@@ -20,13 +20,42 @@
   }
 
   .font-display {
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-family: 'Manrope', system-ui, sans-serif;
   }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    line-height: 1;
+  }
+
+  .material-symbols-outlined.filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes sparkle {
   0%, 100% { opacity: 0.1; transform: scale(0.3); }
   50% { opacity: 1; transform: scale(1); }
+}
+
+.float-anim {
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #003331 0%, #004b49 100%);
+}
+
+.glass-nav {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .sparkle {
