@@ -14,10 +14,7 @@ import { ProductFacade } from '../../core/facades/product.facade';
 
         <!-- Left: Text -->
         <div class="lg:col-span-6 z-10 py-20 lg:py-0">
-          <span class="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wider text-primary bg-secondary-container rounded-full uppercase font-label">
-            Visionary Excellence
-          </span>
-          <h1 class="text-5xl md:text-7xl font-extrabold text-primary font-headline leading-[1.1] mb-6 tracking-tight">
+<h1 class="text-5xl md:text-7xl font-extrabold text-primary font-headline leading-[1.1] mb-6 tracking-tight">
             Himalayan Optical <br/>
             <span style="color: #004b49; opacity: 0.7;">Center</span>
           </h1>

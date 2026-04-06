@@ -53,6 +53,9 @@ function emptyForm(): ProductForm {
     .progress-bar { height: 6px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; margin-top: 0.5rem; }
     .progress-fill { height: 100%; background: #003331; border-radius: 9999px; transition: width 0.2s; }
     .unread-dot { width: 8px; height: 8px; background: #003331; border-radius: 9999px; flex-shrink: 0; }
+    .mobile-nav-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem; padding: 0.5rem 0.25rem; font-size: 0.65rem; font-weight: 600; color: #94a3b8; border: none; background: transparent; cursor: pointer; transition: color 0.15s; }
+    .mobile-nav-btn.mobile-nav-active { color: #003331; }
+    .mobile-nav-btn.mobile-nav-active span.material-symbols-outlined { font-variation-settings: 'FILL' 1; }
   `],
   template: `
     <!-- ===== LOGIN SCREEN ===== -->
@@ -84,15 +87,16 @@ function emptyForm(): ProductForm {
 
         <!-- Top bar -->
         <header class="bg-white border-b border-slate-100 sticky top-0 z-40">
-          <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
+          <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
               <span class="material-symbols-outlined text-2xl" style="color:#003331;">admin_panel_settings</span>
               <div>
-                <h1 class="font-bold text-slate-800 text-lg leading-none">Admin Panel</h1>
-                <p class="text-xs text-slate-400">Himalayan Optical Center</p>
+                <h1 class="font-bold text-slate-800 text-base leading-none">Admin Panel</h1>
+                <p class="text-xs text-slate-400 hidden sm:block">Himalayan Optical Center</p>
               </div>
             </div>
-            <div class="flex items-center gap-2">
+            <!-- Desktop tabs -->
+            <div class="hidden md:flex items-center gap-2">
               <div class="flex gap-1 bg-slate-100 rounded-xl p-1">
                 <button class="tab-btn" [class.active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
                   <span class="material-symbols-outlined" style="font-size:16px;">dashboard</span> Dashboard
@@ -113,17 +117,52 @@ function emptyForm(): ProductForm {
                   }
                 </button>
               </div>
-              <a routerLink="/" class="text-sm text-slate-500 hover:text-slate-700 font-medium transition-colors flex items-center gap-1 ml-2" title="View Website">
-                <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
+              <a routerLink="/" class="text-sm text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-1 ml-1" title="View Website">
+                <span class="material-symbols-outlined" style="font-size:20px;">open_in_new</span>
               </a>
-              <button (click)="logout()" class="text-sm text-slate-500 hover:text-slate-700 font-medium transition-colors flex items-center gap-1" title="Logout">
-                <span class="material-symbols-outlined" style="font-size:18px;">logout</span>
+              <button (click)="logout()" class="text-sm text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-1" title="Logout">
+                <span class="material-symbols-outlined" style="font-size:20px;">logout</span>
+              </button>
+            </div>
+            <!-- Mobile top-right actions -->
+            <div class="flex md:hidden items-center gap-3">
+              <a routerLink="/" class="text-slate-500" title="View Website">
+                <span class="material-symbols-outlined" style="font-size:22px;">open_in_new</span>
+              </a>
+              <button (click)="logout()" class="text-slate-500" title="Logout">
+                <span class="material-symbols-outlined" style="font-size:22px;">logout</span>
               </button>
             </div>
           </div>
         </header>
 
-        <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Mobile bottom nav -->
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-40 flex">
+          <button class="mobile-nav-btn flex-1" [class.mobile-nav-active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
+            <span class="material-symbols-outlined" style="font-size:22px;">dashboard</span>
+            <span>Dashboard</span>
+          </button>
+          <button class="mobile-nav-btn flex-1" [class.mobile-nav-active]="activeTab() === 'products'" (click)="activeTab.set('products')">
+            <span class="material-symbols-outlined" style="font-size:22px;">inventory_2</span>
+            <span>Products</span>
+          </button>
+          <button class="mobile-nav-btn flex-1 relative" [class.mobile-nav-active]="activeTab() === 'messages'" (click)="activeTab.set('messages')">
+            <span class="material-symbols-outlined" style="font-size:22px;">mail</span>
+            @if (unreadCount() > 0) {
+              <span class="absolute top-2 right-6 w-4 h-4 rounded-full text-white flex items-center justify-center" style="background:#003331; font-size:0.6rem; font-weight:800;">{{ unreadCount() }}</span>
+            }
+            <span>Messages</span>
+          </button>
+          <button class="mobile-nav-btn flex-1 relative" [class.mobile-nav-active]="activeTab() === 'appointments'" (click)="activeTab.set('appointments')">
+            <span class="material-symbols-outlined" style="font-size:22px;">calendar_month</span>
+            @if (pendingApptCount() > 0) {
+              <span class="absolute top-2 right-6 w-4 h-4 rounded-full text-white flex items-center justify-center" style="background:#f59e0b; font-size:0.6rem; font-weight:800;">{{ pendingApptCount() }}</span>
+            }
+            <span>Appts</span>
+          </button>
+        </nav>
+
+        <div class="max-w-7xl mx-auto px-3 md:px-6 py-4 md:py-8 pb-24 md:pb-8">
 
           <!-- ===== DASHBOARD TAB ===== -->
           @if (activeTab() === 'dashboard') {
@@ -442,13 +481,13 @@ function emptyForm(): ProductForm {
           <!-- ===== APPOINTMENTS TAB ===== -->
           @if (activeTab() === 'appointments') {
             <div>
-              <div class="flex justify-between items-center mb-6">
-                <h2 class="font-bold text-slate-800">Appointments ({{ appointments().length }})</h2>
-                <div class="flex gap-2">
+              <div class="mb-6">
+                <h2 class="font-bold text-slate-800 mb-3">Appointments ({{ appointments().length }})</h2>
+                <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" style="scrollbar-width:none;">
                   @for (s of apptStatuses; track s.value) {
                     <button
                       (click)="apptFilter.set(s.value)"
-                      class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border"
+                      class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border whitespace-nowrap flex-shrink-0"
                       [style.background]="apptFilter() === s.value ? '#003331' : '#fff'"
                       [style.color]="apptFilter() === s.value ? '#fff' : '#64748b'"
                       [style.border-color]="apptFilter() === s.value ? '#003331' : '#e2e8f0'"
