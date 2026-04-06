@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
         <!-- Brand -->
         <div>
           <div class="flex items-center gap-2 mb-4">
-            <span class="material-symbols-outlined text-primary text-2xl">visibility</span>
             <h3 class="text-lg font-bold text-primary font-headline">Himalayan Optical</h3>
           </div>
           <p class="text-slate-500 text-sm leading-relaxed mb-6">

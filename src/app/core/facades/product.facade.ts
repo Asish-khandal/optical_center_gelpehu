@@ -34,6 +34,10 @@ export class ProductFacade {
     return this.productService.addProduct(product);
   }
 
+  updateProduct(id: string, changes: Partial<Omit<Product, 'id'>>): Promise<void> {
+    return this.productService.updateProduct(id, changes);
+  }
+
   deleteProduct(id: string): Promise<void> {
     return this.productService.deleteProduct(id);
   }

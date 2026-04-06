@@ -1,5 +1,18 @@
 export type ProductCategory = 'eyeglass' | 'sunglass';
 
+export interface Appointment {
+  id?: string;
+  name: string;
+  phone: string;
+  email?: string;
+  service: string;
+  date: string;
+  time: string;
+  notes?: string;
+  status?: 'pending' | 'confirmed' | 'cancelled';
+  createdAt?: any;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -17,5 +30,6 @@ export interface ContactMessage {
   email: string;
   phone?: string;
   message: string;
-  createdAt?: Date;
+  read?: boolean;
+  createdAt?: any;
 }

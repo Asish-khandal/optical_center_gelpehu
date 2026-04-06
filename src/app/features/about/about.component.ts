@@ -67,7 +67,6 @@ import { RouterLink } from '@angular/router';
             </p>
           </div>
           <div class="bg-surface-container-lowest p-12 rounded-2xl shadow-sm" style="border-left: 4px solid #4a6360;">
-            <span class="material-symbols-outlined mb-6" style="font-size:40px; color:#4a6360;">visibility</span>
             <h3 class="text-2xl font-bold font-headline text-primary mb-4">Our Vision</h3>
             <p class="text-on-surface-variant leading-relaxed">
               To be recognized as the premier destination for optical excellence in Bhutan, where innovative eye health solutions meet a curated boutique experience, defining the future of eye care in the region.

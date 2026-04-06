@@ -31,8 +31,8 @@ import { ContactService } from '../../core/services/contact.service';
                   <span class="material-symbols-outlined">location_on</span>
                 </div>
                 <div>
-                  <h3 class="font-headline font-bold text-xl mb-1 text-primary">Visit Our Boutique</h3>
-                  <p class="text-on-surface-variant leading-relaxed">Gelephu Town, Sarpang District<br/>Bhutan</p>
+                  <h3 class="font-headline font-bold text-xl mb-1 text-primary">Visit Our Store</h3>
+                  <p class="text-on-surface-variant leading-relaxed">Gelephu Town, Sarpang District<br/>Bhutan &middot; Near Main Market</p>
                 </div>
               </div>
 
@@ -42,23 +42,25 @@ import { ContactService } from '../../core/services/contact.service';
                   <span class="material-symbols-outlined">call</span>
                 </div>
                 <div>
-                  <h3 class="font-headline font-bold text-xl mb-1 text-primary">Call Assistance</h3>
+                  <h3 class="font-headline font-bold text-xl mb-1 text-primary">Call / WhatsApp</h3>
                   <p class="text-on-surface-variant leading-relaxed">
-                    <a href="tel:+97517635837" class="hover:text-primary transition-colors">+975-17635837</a><br/>
+                    <a href="tel:+97517635837" class="hover:text-primary transition-colors font-semibold">+975-17635837</a><br/>
                     Mon – Sat, 9:00 AM – 7:00 PM
                   </p>
                 </div>
               </div>
 
-              <!-- Email -->
+              <!-- Facebook -->
               <div class="flex items-start gap-6 p-6 rounded-xl bg-surface-container-lowest">
                 <div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center text-primary shrink-0">
-                  <span class="material-symbols-outlined">mail</span>
+                  <i class="pi pi-facebook text-lg"></i>
                 </div>
                 <div>
-                  <h3 class="font-headline font-bold text-xl mb-1 text-primary">Digital Inquiry</h3>
+                  <h3 class="font-headline font-bold text-xl mb-1 text-primary">Facebook Page</h3>
                   <p class="text-on-surface-variant leading-relaxed">
-                    <a href="mailto:info@himalayanoptical.bt" class="hover:text-primary transition-colors">info@himalayanoptical.bt</a>
+                    <a href="https://www.facebook.com/profile.php?id=100062862846381" target="_blank"
+                       class="hover:text-primary transition-colors text-sm">Himalayan Optical Center</a><br/>
+                    <span class="text-sm">Send us a message on Facebook</span>
                   </p>
                 </div>
               </div>
@@ -109,7 +111,7 @@ import { ContactService } from '../../core/services/contact.service';
                   ngModel
                   required
                   #nameRef="ngModel"
-                  placeholder="Ex: Tenzin Dorji"
+                  placeholder="Ex: Asish Khandal"
                   class="w-full px-6 py-4 rounded-xl bg-surface-container-lowest border-none focus:ring-2 focus:ring-primary transition-all text-on-surface font-body outline-none"
                   [ngClass]="nameRef.invalid && nameRef.touched ? 'ring-2 ring-error' : ''"
                 />

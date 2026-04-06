@@ -78,62 +78,78 @@ import { ProductFacade } from '../../core/facades/product.facade';
       </div>
 
       <!-- Bento grid -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <!-- Large: Titanium Series (col-span-2 row-span-2) -->
-        <div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-2xl bg-surface-container-lowest p-8 flex flex-col justify-between h-[600px]">
-          <div class="relative z-10">
-            <span class="text-sm font-bold text-on-primary-container tracking-widest uppercase">New Arrival</span>
-            <h3 class="text-3xl font-bold mt-2 text-white drop-shadow">Titanium Series</h3>
-          </div>
+        <!-- Large: Titanium Series -->
+        <div class="group relative overflow-hidden rounded-2xl bg-slate-800" style="height:600px;">
           <img
-            class="absolute inset-0 w-full h-full object-cover -z-10 transition-transform duration-500 group-hover:scale-105"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEYd2y4CWL7jcGprjBsjZBHF0YVxF2RbNiFTOW4JUVwKJ_Wq0MwrzGp2IMGWV0tu2UUmgVkNbz3W7AM6WleurSWJmhAxbCflDghzbplrWqOzhgq8RZtHOTQxQcRjvOQACeU8Xi_zp7vKLCBWgMrxcfZXMKp2lV3rcDxU_zSd0K18swlX_W7MgPH8Ik1nwlQJPvNfQ7UDT71VrUxGzGBsLKaC682x8ttvN81Ue1YWmpBJ8JyqjbjUY68vhdaUvgdwRPrbGIpGHAGfWz"
             alt="Titanium Series eyewear"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent -z-10"></div>
-          <div class="relative z-10 mt-auto">
-            <a routerLink="/products"
-               class="inline-block px-6 py-3 bg-white/90 backdrop-blur text-primary rounded-lg font-bold shadow-lg hover:bg-white transition-colors">
-              Shop Now
-            </a>
+          <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+          <div class="absolute inset-0 flex flex-col justify-between p-8">
+            <div>
+              <span class="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3" style="background:rgba(255,255,255,0.2); color:#fff; backdrop-filter:blur(4px);">New Arrival</span>
+              <h3 class="text-4xl font-extrabold text-white font-headline leading-tight">Titanium<br/>Series</h3>
+            </div>
+            <div>
+              <p class="text-white/80 text-sm mb-5">Ultra-lightweight frames engineered for all-day comfort.</p>
+              <a routerLink="/products"
+                 class="inline-block px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-105"
+                 style="background:rgba(255,255,255,0.9); color:#003331;">
+                Shop Now →
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Classic Aviators -->
-        <div class="md:col-span-2 group relative overflow-hidden rounded-2xl bg-surface-container-low h-[288px]">
-          <img
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPuQa_J7PMuEaGGkuLd37jcshWvO9XDGWyWU2NQzNudFaPoHZnYLnXPCSeAkOd01FLDAnSijnBrMNBNoTFbGtxaWrtGqLFbAmzeBW8YatPbFBcWZ2M9nkqbi_wF7BbRkJOu3sltW-KstLpCSVOLIDrpdDdpMWluMG34lbTJoeX762DmWhVYZnpS5m4Wnj9Wjp2pYSxI5HWZ2jHq8CioYy8Ky35L44q9KbmLoCH4XzpvX_7sqk21vSWAw8Yy1O8-u0qADKIe8DJtt3n"
-            alt="Classic Aviators"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
-            <h3 class="text-white text-xl font-bold">Classic Aviators</h3>
-            <p class="text-white/80 text-sm">Timeless style, modern protection.</p>
-          </div>
-        </div>
+        <!-- Right column: Classic Aviators top, Minimalist + Eco-Craft bottom -->
+        <div class="flex flex-col gap-6" style="height:600px;">
 
-        <!-- The Minimalist -->
-        <div class="group relative overflow-hidden rounded-2xl bg-surface-container-low h-[288px]">
-          <img
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvsxj1UvPAuIii1c2XJPb708nQOOYOCtEMy4x4OQhcvTh4slg76fVm77BCgiQb5GDa-qNGezlHFU35DSXH3dpWcbKud5fns1FySizx18kUHDB0YSbXXrZBRVwL0WkJxU4agO5snPVhPkWiFRWWMR1NobjzYrrbwkzU0MYtGvZo4aFTogTy1CKK6DwTGxOfWYYT2806DAXVneEKDEuBRrEG9hFr3fqr9ow83k7YwgqyHtmOXtoYPn04Hiy0cDLSKbb69K8EeKHWX7Yc"
-            alt="The Minimalist"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
-            <h3 class="text-white text-lg font-bold">The Minimalist</h3>
+          <!-- Classic Aviators — tall top card -->
+          <div class="group relative overflow-hidden rounded-2xl bg-slate-800 flex-1">
+            <img
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPuQa_J7PMuEaGGkuLd37jcshWvO9XDGWyWU2NQzNudFaPoHZnYLnXPCSeAkOd01FLDAnSijnBrMNBNoTFbGtxaWrtGqLFbAmzeBW8YatPbFBcWZ2M9nkqbi_wF7BbRkJOu3sltW-KstLpCSVOLIDrpdDdpMWluMG34lbTJoeX762DmWhVYZnpS5m4Wnj9Wjp2pYSxI5HWZ2jHq8CioYy8Ky35L44q9KbmLoCH4XzpvX_7sqk21vSWAw8Yy1O8-u0qADKIe8DJtt3n"
+              alt="Classic Aviators"
+            />
+            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="text-white font-bold text-xl">Classic Aviators</h3>
+              <p class="text-white/70 text-sm mt-1">Timeless style, modern protection.</p>
+            </div>
           </div>
-        </div>
 
-        <!-- Eco-Craft -->
-        <div class="group relative overflow-hidden rounded-2xl bg-surface-container-low h-[288px]">
-          <img
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcCjZE1E4jsb4MYzZK4yAiDw9xIyoHymm3VyE80ex9kpll04AonqFLxx7fnLGkCwu52nNbgJvXbu6W_LvMgsrRxmVQEa3bzDKHwtlJZW9-Pz-iH1W-nYmPAvVvT_QtDRkGiymLdN7RZOKiUmSzhnc3PlfyrTyl0UJ4Hunn556s-bX_spwIkoyWatakiwuJ-1ClFL7OfnUodrBBPjZQMxuO97fZ5Gy8GtrWG7HmKKg0FbB_wi-WEiN7XSB4NshngkSiCDdQ531EChjR"
-            alt="Eco-Craft"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
-            <h3 class="text-white text-lg font-bold">Eco-Craft</h3>
+          <!-- Bottom row: Minimalist + Eco-Craft side by side -->
+          <div class="grid grid-cols-2 gap-6" style="height:220px;">
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800">
+              <img
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvsxj1UvPAuIii1c2XJPb708nQOOYOCtEMy4x4OQhcvTh4slg76fVm77BCgiQb5GDa-qNGezlHFU35DSXH3dpWcbKud5fns1FySizx18kUHDB0YSbXXrZBRVwL0WkJxU4agO5snPVhPkWiFRWWMR1NobjzYrrbwkzU0MYtGvZo4aFTogTy1CKK6DwTGxOfWYYT2806DAXVneEKDEuBRrEG9hFr3fqr9ow83k7YwgqyHtmOXtoYPn04Hiy0cDLSKbb69K8EeKHWX7Yc"
+                alt="The Minimalist"
+              />
+              <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white font-bold text-base">The Minimalist</h3>
+                <p class="text-white/60 text-xs mt-0.5">Clean lines for a modern look.</p>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800">
+              <img
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcCjZE1E4jsb4MYzZK4yAiDw9xIyoHymm3VyE80ex9kpll04AonqFLxx7fnLGkCwu52nNbgJvXbu6W_LvMgsrRxmVQEa3bzDKHwtlJZW9-Pz-iH1W-nYmPAvVvT_QtDRkGiymLdN7RZOKiUmSzhnc3PlfyrTyl0UJ4Hunn556s-bX_spwIkoyWatakiwuJ-1ClFL7OfnUodrBBPjZQMxuO97fZ5Gy8GtrWG7HmKKg0FbB_wi-WEiN7XSB4NshngkSiCDdQ531EChjR"
+                alt="Eco-Craft"
+              />
+              <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white font-bold text-base">Eco-Craft</h3>
+                <p class="text-white/60 text-xs mt-0.5">Sustainably sourced.</p>
+              </div>
+            </div>
+
           </div>
         </div>
 

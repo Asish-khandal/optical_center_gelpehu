@@ -5,12 +5,13 @@ import {
   collectionData,
   doc,
   addDoc,
+  updateDoc,
   deleteDoc,
   query,
   orderBy,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
@@ -25,6 +26,10 @@ export class ProductService {
 
   addProduct(product: Omit<Product, 'id'>): Promise<void> {
     return addDoc(this.col, { ...product, createdAt: serverTimestamp() }).then(() => undefined);
+  }
+
+  updateProduct(id: string, changes: Partial<Omit<Product, 'id'>>): Promise<void> {
+    return updateDoc(doc(this.firestore, 'products', id), changes);
   }
 
   deleteProduct(id: string): Promise<void> {

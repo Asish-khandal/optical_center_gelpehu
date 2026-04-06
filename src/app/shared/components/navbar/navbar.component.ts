@@ -1,5 +1,5 @@
-import { Component, signal, HostListener } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, signal, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +9,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     <nav class="fixed top-0 w-full z-50 glass-nav shadow-sm">
       <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
 
-        <!-- Logo -->
-        <a routerLink="/" class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-2xl">visibility</span>
+        <!-- Logo (long press → admin) -->
+        <a routerLink="/" class="flex items-center gap-2 select-none"
+          (mousedown)="startLongPress()" (mouseup)="cancelLongPress()" (mouseleave)="cancelLongPress()"
+          (touchstart)="startLongPress()" (touchend)="cancelLongPress()" (touchcancel)="cancelLongPress()">
           <span class="text-xl font-bold text-primary font-headline tracking-tight">Himalayan Optical Center</span>
         </a>
 
@@ -31,10 +32,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
         <!-- Right actions -->
         <div class="hidden md:flex items-center gap-4">
-          <button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant" aria-label="Search">search</button>
-          <button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant" aria-label="Bag">shopping_bag</button>
           <a
-            routerLink="/contact"
+            routerLink="/appointment"
             class="bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-semibold text-sm hover:shadow-xl transition-all active:scale-95"
           >
             Book Appointment
@@ -65,7 +64,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
               >{{ link.label }}</a>
             }
             <a
-              routerLink="/contact"
+              routerLink="/appointment"
               (click)="menuOpen.set(false)"
               class="mt-2 px-5 py-3.5 bg-primary text-on-primary rounded-xl font-headline font-bold text-center flex items-center justify-center transition-all"
             >
@@ -78,7 +77,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   `,
 })
 export class NavbarComponent {
+  private router = inject(Router);
   menuOpen = signal(false);
+  private longPressTimer: ReturnType<typeof setTimeout> | null = null;
 
   navLinks = [
     { label: 'Home', path: '/' },
@@ -89,5 +90,18 @@ export class NavbarComponent {
 
   toggleMenu() {
     this.menuOpen.update((v) => !v);
+  }
+
+  startLongPress() {
+    this.longPressTimer = setTimeout(() => {
+      this.router.navigate(['/admin']);
+    }, 800);
+  }
+
+  cancelLongPress() {
+    if (this.longPressTimer) {
+      clearTimeout(this.longPressTimer);
+      this.longPressTimer = null;
+    }
   }
 }
